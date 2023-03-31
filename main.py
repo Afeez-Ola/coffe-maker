@@ -11,28 +11,25 @@ def report_printing():
         result = (f"{item}:{value}")
         print(result)
 
+def payment_process():
+    quarter_prompt = int(input("\nHow many quarter are you paying?: "))
+    dime_prompt = int(input("How many dime are you paying?: "))
+    nickel_prompt = int(input("How many nickel are you paying?: "))
+    penny_prompt = int(input("How many penny are you paying?: "))
 
+    total_quarters = quarter_prompt * 0.25
+    total_dimes = dime_prompt * 0.10
+    total_nickels = nickel_prompt * 0.05
+    total_pennies = penny_prompt * 0.01
 
+    user_payment = round((total_quarters + total_pennies + total_nickels + total_dimes), 2)
+    return user_payment
 def coffee_selection():
     global process_coffee
-    quarters_unit = 0.25
-    dimes_unit = 0.10
-    nickels_unit = 0.05
-    pennies_unit = 0.01
     while process_coffee:
         prompt = input("What would you like? (espresso/latte/cappuccino): ").lower()
         if prompt == "cappuccino":
-            quarter_prompt = int(input("\nHow many quarter are you paying?: "))
-            dime_prompt = int(input("How many dime are you paying?: "))
-            nickel_prompt = int(input("How many nickel are you paying?: "))
-            penny_prompt = int(input("How many penny are you paying?: "))
-
-            total_quarters = quarter_prompt * quarters_unit
-            total_dimes = dime_prompt * dimes_unit
-            total_nickels = nickel_prompt * nickels_unit
-            total_pennies = penny_prompt * pennies_unit
-
-            user_payment = round((total_quarters + total_pennies + total_nickels + total_dimes), 2)
+            user_payment = payment_process()
             coffee_selected = MENU[prompt]
             cappuccino_cost = coffee_selected["cost"]
             # checking if there's enough resources to make cappuccino
@@ -143,8 +140,9 @@ def coffee_selection():
 
 coffee_selection()
 
-# from menu import MENU, resources
-#
+
+#Here is the refactored code.
+
 # def report_printing():
 #     for item, value in resources.items():
 #         print(f"{item}: {value}")
