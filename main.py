@@ -28,25 +28,27 @@ def coffee_selection():
     global process_coffee
     while process_coffee:
         prompt = input("What would you like? (espresso/latte/cappuccino): ").lower()
-        if prompt == "cappuccino":
+
+
+        if prompt in ["espresso", "latte", "cappuccino"]:
             user_payment = payment_process()
             coffee_selected = MENU[prompt]
-            cappuccino_cost = coffee_selected["cost"]
+            coffee_cost = coffee_selected["cost"]
             # checking if there's enough resources to make cappuccino
             if coffee_selected["ingredients"]["water"] <= resources["water"] and coffee_selected["ingredients"]["milk"] <= resources["milk"] and coffee_selected["ingredients"]["coffee"] <= \
                     resources["coffee"]:
-                if user_payment >= cappuccino_cost:
+                if user_payment >= coffee_cost:
                     resources["water"] = resources["water"] - coffee_selected["ingredients"]["water"]
                     resources["milk"] = resources["milk"] - coffee_selected["ingredients"]["milk"]
                     resources["coffee"] = resources["coffee"] - coffee_selected["ingredients"]["coffee"]
-                    balance = round((user_payment - cappuccino_cost), 2)
-                    resources["money"] += cappuccino_cost
-                    print(f"Coffee Processed. Latte cost:${cappuccino_cost}. User payed: {user_payment}")
+                    balance = round((user_payment - coffee_cost), 2)
+                    resources["money"] += coffee_cost
+                    print(f"Coffee Processed. {prompt} cost:${coffee_cost}. User payed: {user_payment}")
 
-                    if user_payment > cappuccino_cost:
+                    if user_payment > coffee_cost:
                         print(f"Here is ${balance} dollars in change.")
 
-                elif user_payment < cappuccino_cost:
+                elif user_payment < coffee_cost:
                     print("“Sorry that's not enough money. Money refunded.")
             else:
                 print("Coffee can not processed because of insufficient resources.")
@@ -63,80 +65,6 @@ def coffee_selection():
                 process_coffee = True
             else:
                 process_coffee = False
-        elif prompt == 'latte':
-            quarter_prompt = int(input("\nHow many quarter are you paying?: "))
-            dime_prompt = int(input("How many dime are you paying?: "))
-            nickel_prompt = int(input("How many nickel are you paying?: "))
-            penny_prompt = int(input("How many penny are you paying?: "))
-
-            total_quarters = quarter_prompt * quarters_unit
-            total_dimes = dime_prompt * dimes_unit
-            total_nickels = nickel_prompt * nickels_unit
-            total_pennies = penny_prompt * pennies_unit
-
-            user_payment = round((total_quarters + total_pennies + total_nickels + total_dimes), 2)
-            coffee_selected = MENU[prompt]
-            latte_cost = coffee_selected["cost"]
-            # checking if there's enough resources to make cappuccino
-            if coffee_selected["ingredients"]["water"] <= resources["water"] and coffee_selected["ingredients"]["milk"] <= resources["milk"] and coffee_selected["ingredients"]["coffee"] <= \
-                    resources["coffee"]:
-                if user_payment >= latte_cost:
-                    resources["water"] = resources["water"] - coffee_selected["ingredients"]["water"]
-                    resources["milk"] = resources["milk"] - coffee_selected["ingredients"]["milk"]
-                    resources["coffee"] = resources["coffee"] - coffee_selected["ingredients"]["coffee"]
-                    balance = round((user_payment - latte_cost), 2)
-                    resources["money"] += latte_cost
-                    print(f"Coffee Processed. Latte cost:${latte_cost}. User payed: {user_payment}")
-
-                    if user_payment > latte_cost:
-                        print(f"Here is ${balance} dollars in change.")
-
-                elif user_payment < latte_cost:
-                    print("“Sorry that's not enough money. Money refunded.")
-            else:
-                print("Coffee can not processed because of insufficient resources.")
-            still_buying = input("Do you want to make another purchase? Type 'yes' or 'no': ")
-            if still_buying == 'yes':
-                process_coffee = True
-            else:
-                process_coffee = False
-        elif prompt == "espresso":
-            quarter_prompt = int(input("\nHow many quarter are you paying?: "))
-            dime_prompt = int(input("How many dime are you paying?: "))
-            nickel_prompt = int(input("How many nickel are you paying?: "))
-            penny_prompt = int(input("How many penny are you paying?: "))
-
-            total_quarters = quarter_prompt * quarters_unit
-            total_dimes = dime_prompt * dimes_unit
-            total_nickels = nickel_prompt * nickels_unit
-            total_pennies = penny_prompt * pennies_unit
-
-            user_payment = round((total_quarters + total_pennies + total_nickels + total_dimes), 2)
-            coffee_selected = MENU[prompt]
-            espresso_cost = coffee_selected["cost"]
-            # checking if there's enough resources to make Coffee
-            if coffee_selected["ingredients"]["water"] <= resources["water"] and coffee_selected["ingredients"]["coffee"] <= \
-                    resources["coffee"]:
-                if user_payment >= espresso_cost:
-                    resources["water"] = resources["water"] - coffee_selected["ingredients"]["water"]
-                    resources["coffee"] = resources["coffee"] - coffee_selected["ingredients"]["coffee"]
-                    balance = round((user_payment - espresso_cost), 2)
-                    resources["money"] += espresso_cost
-                    print(f"Coffee Processed. Latte cost:${espresso_cost}. User payed: {user_payment}")
-
-                    if user_payment > espresso_cost:
-                        print(f"Here is ${balance} dollars in change.")
-
-                elif user_payment < espresso_cost:
-                    print("“Sorry that's not enough money. Money refunded.")
-            else:
-                print("Coffee can not processed because of insufficient resources.")
-            still_buying = input("Do you want to make another purchase? Type 'yes' or 'no': ")
-            if still_buying == 'yes':
-                process_coffee = True
-            else:
-                process_coffee = False
-
 
 coffee_selection()
 
